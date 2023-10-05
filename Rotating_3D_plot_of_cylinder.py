@@ -25,7 +25,7 @@ v = np.linspace(-1, 1, 30)
 U, V = np.meshgrid(u, v)
 
 # Set the radius and height of the cylinder
-radius = 1.0
+radius = 0.05
 height = 2.0
 
 # Evaluate the surface function at grid points
@@ -41,7 +41,7 @@ fig = mlab.figure('Vector Field of Normals')
 surf = mlab.mesh(X, Y, Z, scalars=Z, colormap='viridis')
 
 # Create arrows for the vector field of normal vectors
-arrow_scale = 0.1
+arrow_scale = 0.05
 mlab.quiver3d(X, Y, Z, Nx, Ny, Nz, scale_factor=arrow_scale, color=(0, 0, 1))
 
 # Set the view and show the plot
