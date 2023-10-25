@@ -522,6 +522,6 @@ a = 5  # Radius of the charged disk
 sigma = 1e-9  # Charge density in C/m^2 (1 nC/m^2)
 
 plot_electric_field(a, sigma)
-# axes = mlab.axes()
-# axes.axes.font_factor = 2
+axes = mlab.axes()
+axes.axes.font_factor = 2
 mlab.show()
