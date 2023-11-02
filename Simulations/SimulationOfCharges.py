@@ -16,7 +16,6 @@ for charge in rod_charges:
     Ex += charge[0] * (x - charge[1][0]) / r ** 3
     Ey += charge[0] * (y - charge[1][1]) / r ** 3
     Ez += charge[0] * (z - charge[1][2]) / r ** 3
-print(x)
 # Plot the electric field using Mayavi
 mlab.quiver3d(x, y, z, Ex, Ey, Ez)
 mlab.points3d([charge[1][0] for charge in rod_charges], [charge[1][1] for charge in rod_charges], [charge[1][2] for charge in rod_charges], scale_factor=1.5*q)

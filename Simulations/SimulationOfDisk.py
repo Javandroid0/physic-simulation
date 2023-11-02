@@ -479,7 +479,6 @@ def calculate_electric_field(x, y, z, a, sigma, num_intervals=1000):
     E_x = (sigma * a / (2 * epsilon_0)) * midpoint_rule(integrand_x, 0, 2 * np.pi, num_intervals)
     E_y = (sigma * a / (2 * epsilon_0)) * midpoint_rule(integrand_y, 0, 2 * np.pi, num_intervals)
     E_z = (sigma * a / (2 * epsilon_0)) * midpoint_rule(integrand_z, 0, 2 * np.pi, num_intervals)
-    print(E_z)
     return E_x, E_y, E_z
 
 
