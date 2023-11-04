@@ -463,7 +463,6 @@ def midpoint_rule(func, a, b, num_intervals):
 
 def calculate_electric_field(x, y, z, a, sigma, num_intervals=1000):
     epsilon_0 = 8.854e-12  # Vacuum permittivity in F/m
-    #theta_values = np.linspace(0, 2 * np.pi, num_intervals)
 
     # Define functions for electric field components
     def integrand_x(theta):
@@ -484,12 +483,11 @@ def calculate_electric_field(x, y, z, a, sigma, num_intervals=1000):
 
 def plot_electric_field(a, sigma):
     # Calculate electric field components
-    #E_x, E_y, E_z = calculate_electric_field(x, y, z, a, sigma, num_intervals)
 
     # Create a grid of points where the electric field will be plotted
-    x_grid = np.linspace(-2 * a, 2 * a, 10)
-    y_grid = np.linspace(-2 * a, 2 * a, 10)
-    z_grid = np.linspace(-2 * a, 2 * a, 10)
+    x_grid = np.linspace(-2 * a, 2 * a, 5)
+    y_grid = np.linspace(-2 * a, 2 * a, 5)
+    z_grid = np.linspace(-2 * a, 2 * a, 5)
     X, Y, Z = np.meshgrid(x_grid, y_grid, z_grid)
 
     # Calculate electric field at each point on the grid
@@ -512,12 +510,11 @@ def plot_electric_field(a, sigma):
     y_disk = a * np.outer(np.sin(u), np.sin(v))
     #z_disk = a * np.outer(np.ones(np.size(u)), np.cos(v))
     z_disk = np.ones_like(x_disk) - 1
-    #print(z_disk)
     mlab.mesh(x_disk, y_disk, z_disk)
 
 # Example usage
 #x, y, z = 1, 1, 100  # Point where electric field is calculated
-a = 5  # Radius of the charged disk
+a = 1  # Radius of the charged disk
 sigma = 1e-9  # Charge density in C/m^2 (1 nC/m^2)
 
 plot_electric_field(a, sigma)
