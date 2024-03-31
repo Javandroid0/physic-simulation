@@ -203,41 +203,106 @@
 # print("The value of t is:", t)
 
 
+# import numpy as np
+# import matplotlib.pyplot as plt
+# from scipy.integrate import quad
+
+# E =  -1# Assign the value of E
+# m =  1000# Assign the value of m
+# G = 6.6743e-11  # gravitational constant in m^3/kg/s^2
+# M = 5.9722e24
+
+# # Define the integrand
+# def integrand(x):
+#     return 1 / np.sqrt(E + m * M * G / x)
+
+# # Define the limits of integration
+# a = 0.1
+# b = 10000.0
+
+# # Compute the integral using quad
+# result, error = quad(integrand, a, b)
+
+# # Compute t using the result of the integral
+# t = np.sqrt(m / 2) * result
+
+# # Define the range of x values to plot
+# x_values = np.linspace(a, b, num=100)
+
+# # Compute the corresponding t values for each x value
+# t_values = []
+# for x in x_values:
+#     result, error = quad(integrand, a, x)
+#     t_values.append(np.sqrt(m / 2) * result)
+
+# # Plot t as a function of x
+# plt.plot(x_values, t_values)
+# plt.xlabel('x')
+# plt.ylabel('t')
+# plt.title('t as a function of x')
+# plt.show()
+
+
+
+
+
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.integrate import quad
+from scipy.integrate import odeint
 
-E =  -1# Assign the value of E
-m =  1000# Assign the value of m
-G = 6.6743e-11  # gravitational constant in m^3/kg/s^2
-M = 5.9722e24
 
-# Define the integrand
-def integrand(x):
-    return 1 / np.sqrt(E + m * M * G / x)
+# Define the function to integrate
+def time(y, x, E, m, M, G, R):
+    res = 1 / np.sqrt(E + (m * M * G) / (x + R))
+    # print(res)
+    return res
 
-# Define the limits of integration
-a = 0.1
-b = 10000.0
 
-# Compute the integral using quad
-result, error = quad(integrand, a, b)
+def velocity(x, E, m, M, G, R):
+    res = np.sqrt(2 / m * (E + (m * M * G) / (R + x)))
+    return res
 
-# Compute t using the result of the integral
-t = np.sqrt(m / 2) * result
 
-# Define the range of x values to plot
-x_values = np.linspace(a, b, num=100)
+def g(h,G,M,R):
+    return G * M / (R + h) ** 2
 
-# Compute the corresponding t values for each x value
-t_values = []
-for x in x_values:
-    result, error = quad(integrand, a, x)
-    t_values.append(np.sqrt(m / 2) * result)
 
-# Plot t as a function of x
-plt.plot(x_values, t_values)
+# Define the parameters
+E = -6 * 10 ** 9
+m = 1000
+M = 5.972 * 10 ** 24
+G = 6.6743 * 10 ** (-11)
+R = 6400000
+
+# Define the initial conditions
+y0 = 0
+# print(np.sqrt(2/m*(E + (m*M*G)/(R + 90000))))
+# Define the x values to integrate over
+x = np.linspace(0, 60009999)
+
+# Use the Runge-Kutta method to solve the integral
+result = odeint(time, y0, x, args=(E, m, M, G, R))
+elapsed_time = result / np.sqrt(2 / m)
+
+# list_v_test = []
+# for n in range(0, len(result)):
+#     # list_v_test.append(x / elapsed_time[n])
+#     print(elapsed_time[n])
+# print(velocity(x, E, m, M, G, R))
+# print(acceleration(x, M, G, R))
+# Plot the result
+plt.plot(x,g(x,G,M,R))
 plt.xlabel('x')
-plt.ylabel('t')
-plt.title('t as a function of x')
+plt.ylabel('a')
+# plt.title('Numerical Integration Result')
+plt.show()
+plt.plot(velocity(x, E, m, M, G, R), x)
+plt.xlabel('v')
+plt.ylabel('x')
+# plt.title('Numerical Integration Result')
+plt.show()
+plt.plot(elapsed_time, x)
+plt.xlabel('t')
+plt.ylabel('x')
+plt.title('Numerical Integration Result')
 plt.show()

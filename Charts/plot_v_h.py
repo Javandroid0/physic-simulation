@@ -1,29 +1,21 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-# Constants
-G = 6.674 * 10**-11  # Gravitational constant in m^3/kg/s^2
-M = 5.972 * 10**24    # Mass of Earth in kg
-R = 6371000           # Radius of Earth in meters
+# Define the function v(x)
+def v(x, R, M):
+    g = 6.6743e-11 * M / R ** 2
+    return np.sqrt(2 * g * R * (1 / R + x))
 
-# Heights from 1000 to 100000 meters (1 km to 100 km) with 100 points
-heights = np.linspace(1000, 100000, 100)  # 100 points from 1 km to 100 km
+# Define the range of x values
+x = np.linspace(-10, 100, 10000)
 
-# Calculate gravitational accelerations at different heights (negative sign)
-gravitational_accelerations = G * M / (R + heights)**2
+# Plot the function v(x)
+plt.plot(x, v(x, 6.371e6, 5.972e24))
 
-# Time (assuming a specific value, e.g., 10 seconds)
-time = 10  # seconds
+# Add a title and axis labels
+plt.title("Velocity vs. Position")
+plt.xlabel("Position (m)")
+plt.ylabel("Velocity (m/s)")
 
-# Calculate velocities for different heights at the specified time
-velocities = gravitational_accelerations * time
-
-# Plotting
-plt.figure(figsize=(8, 6))
-plt.plot(heights, velocities, color='b', label=f'Velocity at {time} seconds')
-plt.xlabel('Height (meters)')
-plt.ylabel('Velocity (m/s)')
-plt.title('Velocity of Falling Object as a Function of Height')
-plt.grid(True)
-plt.legend()
+# Display the plot
 plt.show()
